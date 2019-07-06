@@ -1,0 +1,392 @@
+---
+title: "useR 2019"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: yeti
+    logo: logo/useR2019.png
+    orientation: rows
+    social: menu
+    source_code: https://github.com/mine-cetinkaya-rundel/rladies-phl-shiny/blob/master/01-flexdash/un-women-dash.Rmd
+---
+
+<style>
+.navbar-inverse {
+  background-color: #7093c7;
+  border-color: #3365b0;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #ffffff;
+  background-color: #3365b0;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #3365b0;
+}
+</style>
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(gt)
+library(DT)
+```
+
+```{r load-data, include = FALSE}
+col_types_for_days <- list(
+    Time = col_character(),
+    `Concorde 1+2` = col_character(),
+    `Saint-Exupéry` = col_character(),
+    `Caravelle 2` = col_character(),
+    `Ariane 1+2` = col_character(),
+    Cassiopée = col_character(),
+    `Guillaumet 1+2` = col_character()
+  )
+
+wed <- read_csv("data/wed_talks_wide.csv", col_types = col_types_for_days)
+thu <- read_csv("data/thu_talks_wide.csv", col_types = col_types_for_days)
+fri <- read_csv("data/fri_talks_wide.csv", col_types = col_types_for_days)
+```
+
+Wednesday
+=======================================================================
+
+```{r}
+wed %>%
+  # Add sub-headers for sessions ----
+  add_row(
+    .before = 2,
+    Time = NA,
+    `Concorde 1+2` = "Data handling",
+    `Saint-Exupéry` = "Shiny",
+    `Caravelle 2` = "Models 1",
+    `Ariane 1+2` = "Applications 1",
+    `Cassiopée` = "Education",
+    `Guillaumet 1+2` = "Multivariate analysis"
+  ) %>%
+  add_row(
+    .before = 1,
+    Time = NA,
+    `Concorde 1+2` = "Keynote",
+    `Saint-Exupéry` = NA,
+    `Caravelle 2` = NA,
+    `Ariane 1+2` = NA,
+    `Cassiopée` = NA,
+    `Guillaumet 1+2` = NA
+  ) %>%
+  add_row(
+    .before = 9,
+    Time = NA,
+    `Concorde 1+2` = "Shiny 2",
+    `Saint-Exupéry` = "Reproducibility",
+    `Caravelle 2` = "Social science, marketing & business",
+    `Ariane 1+2` = "Movement & transport",
+    `Cassiopée` = "Applications 2",
+    `Guillaumet 1+2` = "Bioinformatics 1"
+  ) %>%
+  add_row(
+    .before = 14,
+    Time = NA,
+    `Concorde 1+2` = "Keynote",
+    `Saint-Exupéry` = NA,
+    `Caravelle 2` = NA,
+    `Ariane 1+2` = NA,
+    `Cassiopée` = NA,
+    `Guillaumet 1+2` = NA
+  ) %>%
+  # Make gt object ----
+  gt() %>%
+  # Add table header ----
+  tab_header(
+    title = "Wednesday",
+    subtitle = "10 July 2019"
+  ) %>%
+  # Add source note ---
+  tab_source_note(
+    source_note = md("For the official useR 2019 website, including conference information and tutorial schedule, visit [user2019.fr](http://www.user2019.fr).")
+  ) %>%
+  # Format NAs as empty strings ----
+  fmt_missing(
+    columns = everything(),
+    missing_text = ""
+  ) %>%
+  # Format as markdow to get line breaks and italic speaker names ----
+  fmt_markdown(columns = TRUE) %>%
+  # Bold column headers ----
+  tab_style(
+    style = cells_styles(
+      text_weight = "bold"
+    ),
+    location = cells_column_labels(columns = everything())
+  ) %>%
+  # Format regular session rows with useR 2019 blue ----
+  tab_style(
+    style = cells_styles(
+      bkgd_color = "#3365B0",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = is.na(Time))
+  ) %>%
+  # Format Keynote row with useR 2019 purple ----
+    tab_style(
+    style = cells_styles(
+      bkgd_color = "#932A87",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = `Concorde 1+2` == "Keynote")
+  ) %>%
+  # Vertical align cells ----
+  tab_style(
+    style = "vertical-align:top",
+    locations = cells_data(
+      columns = everything()
+    )
+  )
+```
+
+Thursday
+=======================================================================
+
+```{r}
+thu %>%
+  # Add sub-headers for sessions ----
+  add_row(
+    .before = 1,
+    Time = NA,
+    `Concorde 1+2` = "Keynote",
+    `Saint-Exupéry` = NA,
+    `Caravelle 2` = NA,
+    `Ariane 1+2` = NA,
+    `Cassiopée` = NA,
+    `Guillaumet 1+2` = NA
+  ) %>%
+  add_row(
+    .before = 3,
+    Time = "\u26a1",
+    `Concorde 1+2` = "Workflow & development",
+    `Saint-Exupéry` = "Open science, education & community",
+    `Caravelle 2` = "Spatial & time series",
+    `Ariane 1+2` = "Biostatistics & epidemiology",
+    `Cassiopée` = "Text mining",
+    `Guillaumet 1+2` = NA
+  ) %>%
+  add_row(
+    .before = 11,
+    Time = NA,
+    `Concorde 1+2` = "Communities & conferences",
+    `Saint-Exupéry` = "Programming 1",
+    `Caravelle 2` = "Models 2",
+    `Ariane 1+2` = "Forecasting",
+    `Cassiopée` = "Data mining",
+    `Guillaumet 1+2` = "Biostatistics & epidemiology 1"
+  ) %>%
+  add_row(
+    .before = 17,
+    Time = NA,
+    `Concorde 1+2` = "Operations & data products",
+    `Saint-Exupéry` = "Visualisation",
+    `Caravelle 2` = "Numerical methods",
+    `Ariane 1+2` = "Spatial data & maps",
+    `Cassiopée` = "Programming 2",
+    `Guillaumet 1+2` = "Bioinformatics 2"
+  ) %>%
+  add_row(
+    .before = 22,
+    Time = NA,
+    `Concorde 1+2` = "Keynote",
+    `Saint-Exupéry` = NA,
+    `Caravelle 2` = NA,
+    `Ariane 1+2` = NA,
+    `Cassiopée` = NA,
+    `Guillaumet 1+2` = NA
+  ) %>%
+  # Make gt object ----
+  gt() %>%
+  # Add table header ----
+  tab_header(
+    title = "Thursday",
+    subtitle = "11 July 2019"
+  ) %>%
+  # Add source note ---
+  tab_source_note(
+    source_note = md("For the official useR 2019 website, including conference information and tutorial schedule, visit [user2019.fr](http://www.user2019.fr).")
+  ) %>%
+  # Format NAs as empty strings ----
+  fmt_missing(
+    columns = everything(),
+    missing_text = ""
+  ) %>%
+  # Format as markdow to get line breaks and italic speaker names ----
+  fmt_markdown(columns = TRUE) %>%
+  # Bold column headers ----
+  tab_style(
+    style = cells_styles(
+      text_weight = "bold"
+    ),
+    location = cells_column_labels(columns = everything())
+  ) %>%
+  # Format regular session rows with useR 2019 blue ----
+  tab_style(
+    style = cells_styles(
+      bkgd_color = "#3365B0",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = is.na(Time))
+  ) %>%
+  # Format lightning sessions with useR 2019 blue ----
+  tab_style(
+    style = cells_styles(
+      bkgd_color = "#3365B0",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = Time == "\u26a1") #\U{1F300}
+  ) %>%
+  # Format Keynote row with useR 2019 purple ----
+  tab_style(
+    style = cells_styles(
+      bkgd_color = "#932A87",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = `Concorde 1+2` == "Keynote")
+  ) %>%
+  # Vertical align cells ----
+  tab_style(
+    style = "vertical-align:top",
+    locations = cells_data(
+      columns = everything()
+    )
+  )
+```
+
+Friday
+=======================================================================
+
+```{r}
+fri %>%
+  # Add sub-headers for sessions ----
+  add_row(
+    .before = 1,
+    Time = NA,
+    `Concorde 1+2` = "Keynote",
+    `Saint-Exupéry` = NA,
+    `Caravelle 2` = NA,
+    `Ariane 1+2` = NA,
+    `Cassiopée` = NA,
+    `Guillaumet 1+2` = NA
+  ) %>%
+  add_row(
+    .before = 3,
+    Time = "\u26a1",
+    `Concorde 1+2` = "Shiny & web",
+    `Saint-Exupéry` = "Switching to R",
+    `Caravelle 2` = "Models & methods",
+    `Ariane 1+2` = "Bioinformatics & biostatistics",
+    `Cassiopée` = "Methods & applications",
+    `Guillaumet 1+2` = NA
+  ) %>%
+  add_row(
+    .before = 11,
+    Time = NA,
+    `Concorde 1+2` = "Contribution & collaboration",
+    `Saint-Exupéry` = "Performance",
+    `Caravelle 2` = "Big/high dimensional data",
+    `Ariane 1+2` = "Time series data",
+    `Cassiopée` = "Model deployment",
+    `Guillaumet 1+2` = "Biostatistics & epidemiology 2"
+  ) %>%
+  add_row(
+    .before = 21,
+    Time = NA,
+    `Concorde 1+2` = "Keynote",
+    `Saint-Exupéry` = NA,
+    `Caravelle 2` = NA,
+    `Ariane 1+2` = NA,
+    `Cassiopée` = NA,
+    `Guillaumet 1+2` = NA
+  ) %>%
+  # Make gt object ----
+  gt() %>%
+  # Add table header ----
+  tab_header(
+    title = "Friday",
+    subtitle = "12 July 2019"
+  ) %>%
+  # Add source note ----
+  tab_source_note(
+    source_note = md("For the official useR 2019 website, including conference information and tutorial schedule, visit [user2019.fr](http://www.user2019.fr).")
+  ) %>%
+  # Format NAs as empty strings ----
+  fmt_missing(
+    columns = everything(),
+    missing_text = ""
+  ) %>%
+  # Format as markdow to get line breaks and italic speaker names ----
+  fmt_markdown(columns = TRUE) %>%
+  # Bold column headers ----
+  tab_style(
+    style = cells_styles(
+      text_weight = "bold"
+    ),
+    location = cells_column_labels(columns = everything())
+  ) %>%
+  # Format regular session rows with useR 2019 blue ----
+  tab_style(
+    style = cells_styles(
+      bkgd_color = "#3365B0",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = is.na(Time))
+  ) %>%
+  # Format lightning sessions with useR 2019 blue ----
+  tab_style(
+    style = cells_styles(
+      bkgd_color = "#3365B0",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = Time == "\u26a1") #\U{1F300}
+  ) %>%
+  # Format Keynote row with useR 2019 purple ----
+  tab_style(
+    style = cells_styles(
+      bkgd_color = "#932A87",
+      text_color = "white"
+    ),
+    locations = cells_data(rows = `Concorde 1+2` == "Keynote")
+  ) %>%
+  # Vertical align cells ----
+  tab_style(
+    style = "vertical-align:top",
+    locations = cells_data(
+      columns = everything()
+    )
+  )
+```
+
+Abstracts
+=======================================================================
+
+```{r}
+col_types_for_abstracts <- list(
+  Day = col_character(),
+  Time = col_character(),
+  Title = col_character(),
+  Speaker = col_character(),
+  Abstract = col_character(),
+  Session = col_character(),
+  Room = col_character(),
+  Chair = col_character()
+)
+
+wed_abstracts <- read_csv("data/wed_abstracts_long.csv", col_types = col_types_for_abstracts)
+thu_abstracts <- read_csv("data/thu_abstracts_long.csv", col_types = col_types_for_abstracts)
+fri_abstracts <- read_csv("data/fri_abstracts_long.csv", col_types = col_types_for_abstracts)
+all_abstracts <- bind_rows(wed_abstracts, thu_abstracts, fri_abstracts)
+```
+
+```{r}
+DT::datatable(all_abstracts, 
+              options = list(pageLength = 50, rownames= FALSE)) %>%
+  formatStyle(c(1:8), 'vertical-align' = 'top')
+```
