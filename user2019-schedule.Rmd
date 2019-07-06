@@ -279,7 +279,7 @@ fri %>%
     `Guillaumet 1+2` = "Biostatistics & epidemiology 2"
   ) %>%
   add_row(
-    .before = 21,
+    .before = 17,
     Time = NA,
     `Concorde 1+2` = "Keynote",
     `Saint-Exupéry` = NA,
