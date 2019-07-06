@@ -3,29 +3,11 @@ title: "useR 2019"
 output: 
   flexdashboard::flex_dashboard:
     theme: yeti
+    css: navbar-colors.css
     logo: logo/useR2019.png
     orientation: rows
-    social: menu
     source_code: https://github.com/mine-cetinkaya-rundel/user2019-schedule/blob/master/user2019-schedule.Rmd
 ---
-
-<style>
-.navbar-inverse {
-  background-color: #7093c7;
-  border-color: #3365b0;
-}
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
-  color: #ffffff;
-  background-color: #3365b0;
-}
-.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover,
-.navbar-inverse .navbar-nav > .active > a:focus {
-  color: #ffffff;
-  background-color: #3365b0;
-}
-</style>
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
