@@ -6,7 +6,7 @@ output:
     logo: logo/useR2019.png
     orientation: rows
     social: menu
-    source_code: https://github.com/mine-cetinkaya-rundel/rladies-phl-shiny/blob/master/01-flexdash/un-women-dash.Rmd
+    source_code: https://github.com/mine-cetinkaya-rundel/user2019-schedule/blob/master/user2019-schedule.Rmd
 ---
 
 <style>
