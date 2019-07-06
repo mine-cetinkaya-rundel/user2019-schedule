@@ -1,6 +1,6 @@
 # load packages ----------------------------------------------------------------
-library(rvest)
 library(tidyverse)
+library(rvest)
 library(glue)
 library(tools)
 
@@ -44,7 +44,7 @@ process_schedule <- function(day_tab, day_name){
   
 }
 
-# pricess days -----------------------------------------------------------------
+# process days -----------------------------------------------------------------
 process_schedule(tabs[[1]], "wed")
 process_schedule(tabs[[2]], "thu")
 process_schedule(tabs[[3]], "fri")
