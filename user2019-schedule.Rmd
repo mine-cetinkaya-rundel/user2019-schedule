@@ -8,7 +8,7 @@ output:
     orientation: rows
     source_code: https://github.com/mine-cetinkaya-rundel/user2019-schedule/blob/master/user2019-schedule.Rmd
     navbar:
-      - { title: "Print", icon: "fa-print", href: "https://github.com/mine-cetinkaya-rundel/user2019-schedule/raw/master/webshots/shot-all.pdf", align: right }
+      - { title: "Print", icon: "fa-print", href: "https://github.com/mine-cetinkaya-rundel/user2019-schedule/raw/master/webshots/user2019-schedule.pdf", align: right }
 ---
 
 ```{r setup, include=FALSE}
