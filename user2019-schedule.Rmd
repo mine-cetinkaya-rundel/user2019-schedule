@@ -7,6 +7,8 @@ output:
     logo: logo/useR2019.png
     orientation: rows
     source_code: https://github.com/mine-cetinkaya-rundel/user2019-schedule/blob/master/user2019-schedule.Rmd
+    navbar:
+      - { title: "Print", icon: "fa-print", href: "https://github.com/mine-cetinkaya-rundel/user2019-schedule/raw/master/webshots/shot-all.pdf", align: right }
 ---
 
 ```{r setup, include=FALSE}
